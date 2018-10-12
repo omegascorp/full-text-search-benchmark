@@ -1,0 +1,25 @@
+1. Empty
+
+CONTAINER ID        NAME                                      CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+c3f9909eda17        fulltextsearchbenchmark_elasticsearch_1   1.72%               866.5MiB / 7.708GiB   10.98%              8.91kB / 0B         0B / 410kB          61
+b79de875e67e        fulltextsearchbenchmark_manticore_1       0.29%               1.77MiB / 7.708GiB    0.02%               8.48kB / 0B         0B / 16.4kB         7
+30b822398bf9        fulltextsearchbenchmark_sphinx_1          2.15%               3.473MiB / 7.708GiB   0.04%               7.54kB / 0B         0B / 8.19kB         40
+
+2. After inserting 10,000 entries
+
+CONTAINER ID        NAME                                      CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+9df257a5bf35        fulltextsearchbenchmark_elasticsearch_1   0.29%               917.7MiB / 7.708GiB   11.63%              2.68MB / 3.6MB      80.9MB / 836kB      66
+41eb054f8697        fulltextsearchbenchmark_manticore_1       0.32%               4.438MiB / 7.708GiB   0.06%               5.64MB / 2.13MB     6.06MB / 21.3MB     7
+e2aa77e4cde2        fulltextsearchbenchmark_sphinx_1          2.46%               23.1MiB / 7.708GiB    0.29%               9.53MB / 10.3MB     29.8MB / 19.2MB     40
+
+--- Benchmarks ---
+
+10,000 records
+1,000 searches
+
+BenchmarkInsertRandomRecordsToManticore-8   	       1	2472767258 ns/op
+BenchmarkInsertRandomRecordsToSphinx-8      	       1	2543265771 ns/op
+BenchmarkInsertRandomRecordsToElastic-8     	       1	2455489001 ns/op
+BenchmarkReadManticoreIds-8                 	       1	1149479134 ns/op
+BenchmarkReadSphinxIds-8                    	       1	1014661695 ns/op
+BenchmarkReadElasticIds-8                   	       1	2722284564 ns/op

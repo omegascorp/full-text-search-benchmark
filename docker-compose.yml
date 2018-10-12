@@ -1,0 +1,30 @@
+version: "3"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    ports:
+      - 9200:9200
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+  manticore:
+    image: manticoresearch/manticore:2.7.2
+    ports:
+    - 9306:9306
+    volumes:
+      - ./manticore.conf:/etc/sphinxsearch/sphinx.conf
+      - ./data/manticore:/var/lib/manticore/data
+  sphinx:
+    image: macbre/sphinxsearch:3.0.3
+    ports:
+    - 9307:9306
+    volumes:
+    - ./data/sphinx:/var/lib/sphinxsearch/data
+    - ./sphinx.conf:/opt/sphinx/conf/sphinx.conf
